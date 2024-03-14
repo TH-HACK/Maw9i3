@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play .m3u8 File in HTML5 video player</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+body #video {
+    width: 600px;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow:
+        0px 0px 10.4px rgba(0, 0, 0, 0.045),
+        0px 0px 25.1px rgba(0, 0, 0, 0.065),
+        0px 0px 47.2px rgba(0, 0, 0, 0.08),
+        0px 0px 84.2px rgba(0, 0, 0, 0.095),
+        0px 0px 157.5px rgba(0, 0, 0, 0.115),
+        0px 0px 377px rgba(0, 0, 0, 0.16);
+}
+</style/">
+</head>
+<body>
+   <!-- Include the hls.js library -->
+
+<!-- Create a video element -->
+<video id="video" controls></video>
+
+<!-- Use hls.js to create a player and load the .m3u8 file -->
+<script>
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource('https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8');
+    hls.attachMedia(video);
+    video.play();
+  }
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'https://shls-mbc3-prod-dub.shahid.net/out/v1/d5bbe570e1514d3d9a142657d33d85e6/index.m3u8';
+    video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+  }
+ 
+</script>
+
+</body>
+</html>
